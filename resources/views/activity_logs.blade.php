@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody class="table-strapped">
-                  @foreach ($allLogs as $log)
+                @foreach ($allLogs as $log)
                     <tr>
                         <td>{{ $log->description }}</td>
                         <td>{{ $log->subject_type }}</td>
@@ -51,8 +51,8 @@
                 @endforeach
             </tbody>
         </table>
-         <div class="pagination justify-content-center">
-                {!! $allLogs->links() !!}
-            </div>
+        <div class="pagination justify-content-center">
+            {!! $allLogs->appends(request()->query())->links() !!}
+        </div>
     </div>
 @endsection
