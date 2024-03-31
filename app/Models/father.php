@@ -26,7 +26,7 @@ class father extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'age', 'email', 'grand_father_id'])
-            ->useLogName('GrandFather Activity');
+            ->logOnly(['name', 'email', 'age']);
+            // ->logOnlyDirty();
     }
 }

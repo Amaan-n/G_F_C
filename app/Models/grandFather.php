@@ -1,20 +1,21 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Father;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
-class GrandFather extends Model // Capitalized class name
+
+class GrandFather extends Model 
 {
     use HasFactory;
     use LogsActivity;
 
     protected $fillable = ['name', 'age', 'email'];
 
-    public function fathers() // Corrected relationship method name
+    public function fathers() 
     {
         return $this->hasMany(Father::class);
     }
@@ -22,9 +23,6 @@ class GrandFather extends Model // Capitalized class name
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'age', 'email'])
-            ->useLogName('GrandFather Activity');
+            ->logOnly(['name', 'age', 'email'])->logOnlyDirty(); 
     }
 }
-
-

@@ -34,7 +34,6 @@ class GrandFatherController extends Controller
     public function edit(Request $request)
     {
         $request->validate([
-            'edit_id' => 'required|exists:grand_fathers,id',
             'edit_name' => 'required',
             'edit_email' => 'required|email',
             'edit_age' => 'required|numeric',
