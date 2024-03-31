@@ -6,12 +6,12 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-sm-4">
-           <button class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#addModal">Add Child Details</button>
+           <button class="btn btn-success btn-block shadow rounded" data-bs-toggle="modal" data-bs-target="#addModal">Add Child Details</button>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-bordered table-striped" id="table">
+            <table class="table table-bordered table-striped shadow p-3 mb-5 bg-body rounded" id="table">
                 <thead class="table-dark" style="text-align: center;">
                     <tr>
                         <th>Name</th>
@@ -75,12 +75,14 @@
         $('#addForm').submit(function (e) {
             e.preventDefault();
             var formData = $(this).serialize();
+            console.log(formData);
             $.ajax({
                 url: "{{ route('child.add') }} ",
                 type: 'POST',
                 data: formData,
                 success: function (response) {
                     console.log(response);
+                    $('#addForm')[0].reset();
                      $('#addModal').modal('hide');
                      $('#table').load(location.href + ' #table');
                 },
@@ -89,7 +91,7 @@
                 }
             });
         });
-
+       
         //Editing Entry
        $(document).on('click', '#edit', function () {
             let id = $(this).data('id');
@@ -150,5 +152,12 @@
 
     });
               
+</script>
+<script>
+    $(document).ready(function() {
+        $('#editModal').on('show.bs.modal', function(e) {
+            $('#edit_fathername').trigger('change');
+        });  
+});
 </script>
 @endpush

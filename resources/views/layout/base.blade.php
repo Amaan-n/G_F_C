@@ -24,7 +24,8 @@
             background-color: #f4f4f4;
             padding: 20px;
             height: calc(100vh - 40px);
-            border-right: 1px solid #ddd; /* Add border for better separation */
+            border-right: 1px solid #ddd; 
+            margin-right: 0%;
         }
         
         main {
@@ -37,6 +38,10 @@
             padding: 0;
             list-style: none;
         }
+        .main-content {
+            text-align: center;
+            font-size: 24px;
+}
 
         nav ul li {
             margin-bottom: 10px;
@@ -52,7 +57,7 @@
         nav ul li a:hover {
             color: #000;
             font-weight: bold;
-            background-color: #ebe3e3; 
+            background-color: #cfcdcd98; 
             border-radius: 1rem;
         }
         #nova{
@@ -77,7 +82,7 @@
     </header>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-3" style="margin-left: inherit;">
                 <aside>
                     <nav>
                         <ul class="nav flex-column">
@@ -106,7 +111,7 @@
             </div>
             <div class="col-sm-9">
                 <main>
-                    @yield('content')
+                    @yield('content','Welcome to Dashboard')
                 </main>
             </div>
         </div>

@@ -6,12 +6,12 @@
 <div class="container">
     <div class="row mb-3">
         <div class="col-sm-4">
-           <button class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#addModal">Add Father Details</button>
+           <button class="btn btn-success btn-block shadow rounded" data-bs-toggle="modal" data-bs-target="#addModal">Add Father Details</button>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <table class="table table-bordered table-striped" id="table">
+            <table class="table table-bordered table-striped shadow p-3 mb-5 bg-body rounded" id="table">
                 <thead class="table-dark" style="text-align: center;">
                     <tr>
                         <th>Name</th>

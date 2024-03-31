@@ -26,18 +26,16 @@
                     
                     <div class="mb-3">
                         <label for="edit_fathername" class="form-label">Father Name</label>
-                        <select name="edit_fathername" class="form-control">
+                        <select name="edit_fathername" class="form-control" id="edit_fathername">
                             @foreach (\App\Models\Father::select('id', 'name')->distinct()->get() as $Father)
                                 <option value="{{ $Father->id }}">{{ $Father->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_grandfathername" class="form-label">Father Name</label>
-                        <select name="edit_grandfathername" class="form-control">
-                            @foreach (\App\Models\GrandFather::select('id', 'name')->distinct()->get() as $grandFather)
-                                <option value="{{ $grandFather->id }}">{{ $grandFather->name }}</option>
-                            @endforeach
+                        <label for="edit_grandfathername"  class="form-label">Grandfather Name</label>
+                        <select name="edit_grandfathername" class="form-control" id="edit_grandfathername">
+                             <option value=""></option>
                         </select>
                     </div>
                 </div>
@@ -49,3 +47,35 @@
         </div>
     </div>
 </div>
+@push('script')
+    <script>
+                $.ajaxSetup({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+                 });
+                $(document).ready(function(){
+                $('#edit_fathername').change(function(){
+                        var fathers_id = $(this).val();
+                        console.log(fathers_id)
+                        $.ajax({
+                            url: '{{ route('grand.get', ['id'=> ':id']) }}'.replace(':id', fathers_id),
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function(response){
+                                console.log(response.grandFather.name);
+                                $("#edit_grandfathername").find('option').remove();
+                                if(response.grandFather.name){
+                                    $("#edit_grandfathername").append("<option value='" + response.grandFather.id + "'>" + response.grandFather.name + "</option>");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    });
+                    $('#editModal').on('shown.bs.modal', function() {
+                $('#edit_fathername').change();
+            });
+            }); 
+    </script>                
+@endpush
+

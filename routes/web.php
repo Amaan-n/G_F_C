@@ -19,6 +19,7 @@ Route::prefix('grandfather')->name('grand.')->group(function () {
     Route::post('/add', [GrandFatherController::class, 'add'])->name('add');
     Route::put('/edit', [GrandFatherController::class, 'edit'])->name('edit');
     Route::delete('/delete', [GrandFatherController::class, 'delete'])->name('delete');
+    Route::post('/fetch-fathers/{id}',[GrandFatherController::class,'fetchfathers'])->name('get');
 });
 
 //Father Routes
@@ -27,6 +28,7 @@ Route::prefix('father')->name('father.')->group(function () {
     Route::post('/add', [FatherController::class, 'add'])->name('add');
     Route::put('/edit', [FatherController::class, 'edit'])->name('edit');
     Route::delete('/delete', [FatherController::class, 'delete'])->name('delete');
+   
 });
 
 //Child Routes

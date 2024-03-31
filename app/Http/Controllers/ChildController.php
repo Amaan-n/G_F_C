@@ -19,8 +19,8 @@ class ChildController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'age' => 'required|numeric',
-            'fathername' => 'required', // Add validation for fathername
-            'grandfathername' => 'required', // Add validation for grandfathername
+            'grandfathername' => 'required',
+            'fathername' => 'required', 
         ]);
 
         try {
@@ -28,8 +28,8 @@ class ChildController extends Controller
             $child->name = $request->name;
             $child->email = $request->email;
             $child->age = $request->age;
+            $child->grandfather_id = $request->grandfathername; 
             $child->fathers_id = $request->fathername;
-            $child->grandfather_id = $request->grandfathername; // Assign grandfather_id directly
             $result = $child->save();
 
             if ($result) {

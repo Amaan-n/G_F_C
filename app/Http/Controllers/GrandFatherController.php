@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\grandFather;
+use App\Models\father;
 
 use Illuminate\Http\Request;
 
@@ -34,6 +35,7 @@ class GrandFatherController extends Controller
     public function edit(Request $request)
     {
         $request->validate([
+            'edit_id' => 'required|exists:grand_fathers,id',
             'edit_name' => 'required',
             'edit_email' => 'required|email',
             'edit_age' => 'required|numeric',
@@ -58,6 +60,21 @@ class GrandFatherController extends Controller
         $grandFather->delete();
 
         return response()->json(['success' => true, 'message' => 'Data deleted successfully']);
+    }
+    public function fetchfathers($fathers_id = null){
+        $father = Father::find($fathers_id);
+            if ($father) {
+            $grandFather = $father->grandfathers;
+            return response()->json([
+                'status' => 1,
+                'grandFather' => $grandFather
+            ]);
+            } else {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Father with ID ' . $fathers_id . ' not found.'
+                ], 404);
+            }
     }
 
 }

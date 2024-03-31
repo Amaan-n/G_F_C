@@ -1,12 +1,12 @@
 @extends('layout.base')
 @section('title', 'Logs')
 @section('content')
-    <div class="container">
+<div>
         @if (count($activityLogs) === 0)
             <p>No activity logs found.</p>
         @else
-            <div class="table-responsive" >
-                <table class="table table-bordered table-striped">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped shadow p-3 mb-5 bg-body rounded">
                     <thead class="table-dark">
                         <tr>
                             <th>Event</th>
@@ -24,6 +24,7 @@
                                 $oldValues = $properties['old'] ?? [];
                                 $newValues = $properties['attributes'] ?? [];
                             @endphp
+
                             @if ($activity->description == 'created')
                                 <tr>
                                     <td>Created</td>
@@ -47,9 +48,43 @@
                                     <tr>
                                         <td>Updated</td>
                                         <td>{{ $activity->subject_type }}</td>
-                                        <td>{{ $oldValues[$attribute] ?? 'N/A' }}</td>
-                                        <td>{{ $newValue }}</td>
-                                        <td>{{ $attribute }}</td>
+                                        <td>
+                                            @if ($attribute == 'grand_fathers_id')
+                                                @php
+                                                    $oldGrandfatherName = \App\Models\GrandFather::find($oldValues[$attribute])->name ?? 'N/A';
+                                                @endphp
+                                                {{ $oldGrandfatherName }}
+                                            @elseif ($attribute == 'fathers_id')
+                                                @php
+                                                    $oldFatherName = \App\Models\Father::find($oldValues[$attribute])->name ?? 'N/A';
+                                                @endphp
+                                                {{ $oldFatherName }}
+                                            @else
+                                                {{ $oldValues[$attribute] ?? 'N/A' }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($attribute == 'grand_fathers_id')
+                                                @php
+                                                    $newGrandfatherName = \App\Models\GrandFather::find($newValue)->name ?? 'N/A';
+                                                @endphp
+                                                {{ $newGrandfatherName }}
+                                            @elseif ($attribute == 'fathers_id')
+                                                @php
+                                                    $newFatherName = \App\Models\Father::find($newValue)->name ?? 'N/A';
+                                                @endphp
+                                                {{ $newFatherName }}
+                                            @else
+                                                {{ $newValue }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($attribute == 'grand_fathers_id' || $attribute == 'fathers_id')
+                                                {{ $attribute == 'grand_fathers_id' ? "GrandFather Name" : "Father Name" }}
+                                            @else 
+                                                {{ $attribute }}
+                                            @endif
+                                        </td>
                                         <td>{{ $activity->created_at }}</td>
                                     </tr>
                                 @endforeach

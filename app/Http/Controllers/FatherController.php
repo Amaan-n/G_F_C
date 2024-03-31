@@ -74,5 +74,13 @@ class FatherController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Data deleted successfully']);
     }
+    public function fetchfathers($grand_fathers_id = null){
+        $fathers = Father::where('grand_fathers_id', $grand_fathers_id)->get();
+       // return response()->json(['success'=> true,'fathers'=> $fathers]);
+       return response()->json([
+        'status' => 1,
+        'fathers' => $fathers
+       ]);
+    }
 
 }
